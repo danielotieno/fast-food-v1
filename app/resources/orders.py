@@ -12,9 +12,10 @@ class Orders(Resource):
 
     def post(self, order_id):
         if next(filter(lambda x: x['order_id'] == order_id, orders), None):
-            return { 'message': "The order with order id '{}' already exists.".format(order_id)}, 400
+            return {'message': "The order with order id '{}' already exists.".format(order_id)}, 400
 
-        data = request.get_json()
+        data = Order.parser.parse_args()
+
         order = {
             'order_id': order_id,
             'name': data['name'],
