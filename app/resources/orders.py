@@ -1,10 +1,21 @@
 from flask import Flask, request
-from flask_restful import Resource
+from flask_restful import Resource, reqparse
+
 
 from app.model import orders
 
 
 class Order(Resource):
+
+    """ Create Request parsing interface for price """
+
+    parser = reqparse.RequestParser()
+    parser.add_argument(
+        'price',
+        type=float,
+        required=True,
+        help="This field cannot be left blank"
+    )
 
     """ Get a specific Order method """
 
@@ -28,7 +39,9 @@ class Order(Resource):
     """ Upadate status of a specific order method """
 
     def put(self, order_id):
-        data = request.get_json()
+
+        data = Order.parser.parse_args()
+
         order = next(filter(lambda x: x['order_id'] == order_id, orders), None)
         if order is None:
             order = {
