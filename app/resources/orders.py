@@ -9,10 +9,8 @@ class Order(Resource):
     """ Get a specific Order method """
 
     def get(self, order_id):
-        for order in orders:
-            if order['order_id'] == order_id:
-                return order
-        return {'order': None}, 404
+        order = next(filter(lambda x: x['order_id'] == order_id, orders), None)
+        return {'order': order}, 200 if order else 404
 
     """ Place a new Order method """
 
