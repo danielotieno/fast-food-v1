@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask_restful import Resource
 
 from app.model import orders
@@ -11,12 +11,13 @@ class Orders(Resource):
     """ Place a new Order method """
 
     def post(self, order_id):
+        data = request.get_json()
         order = {
-            'order_id': 3,
-            'name': 'Peter Kamotho',
-            'type': 'Pizza',
-            'price': 650.00,
-            'address': 'Buruburu'
+            'order_id': order_id,
+            'name': data['name'],
+            'type': data['type'],
+            'price': data['price'],
+            'address': data['address']
         }
         orders.append(order)
         return order, 201
