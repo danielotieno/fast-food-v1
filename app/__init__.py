@@ -13,8 +13,8 @@ def create_app(config_name):
     app.config.from_object('config')
     app.url_map.strict_slashes = False
 
-    from app.resources.orders import Orders
+    from app.resources.orders import Order
 
-    api.add_resource(Orders, '/api/v1/orders', '/api/v1/orders/int:order_id>')
+    api.add_resource(Order, '/api/v1/orders/<int:order_id>')
 
     return app
