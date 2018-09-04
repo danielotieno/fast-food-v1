@@ -11,6 +11,9 @@ class Orders(Resource):
     """ Place a new Order method """
 
     def post(self, order_id):
+        if next(filter(lambda x: x['order_id'] == order_id, orders), None):
+            return { 'message': "The order with order id '{}' already exists.".format(order_id)}, 400
+
         data = request.get_json()
         order = {
             'order_id': order_id,
