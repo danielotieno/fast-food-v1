@@ -5,5 +5,7 @@ from app.model import orders
 
 
 class Orders(Resource):
+    """ Create method to get all orders """
+
     def get(self):
         return {'orders': orders}
