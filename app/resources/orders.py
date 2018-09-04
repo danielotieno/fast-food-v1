@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask_restful import Resource
 
 from app.model import orders
@@ -24,3 +24,21 @@ class Order(Resource):
         }
         orders.append(order)
         return order, 201
+
+    """ Upadate status of a specific order method """
+
+    def put(self, order_id):
+        data = request.get_json()
+        order = next(filter(lambda x: x['order_id'] == order_id, orders), None)
+        if order is None:
+            order = {
+                'order_id': order_id,
+                'name': data['name'],
+                'type': data['type'],
+                'price': data['price'],
+                'address': data['address']
+            }
+            orders.append(order)
+        else:
+            order.update(data)
+        return order
