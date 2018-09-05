@@ -10,7 +10,7 @@ ADD_ENTRY_URL = '/api/v1/orders/7'
 ADD_UPDATE_URL = '/api/v1/orders/8'
 GET_SINGLE_URL = '/api/v1/orders/1'
 GET_ALL_URL = '/api/v1/orders'
-DELETE_URL = '/api/v1/orders/1'
+DELETE_URL = '/api/v1/orders/2'
 MODIFY_URL = '/api/v1/orders/8'
 
 
@@ -81,6 +81,17 @@ class TestOrders(TestBase):
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.data.decode())
         print(result)
+
+    def test_delete_an_order(self):
+        """ Test to delete an Order """
+        response = self.client.delete(
+            DELETE_URL, data=json.dumps(dict(order_id=2,
+                                             name="Sharon Ngina",
+                                             type="Pizza",
+                                             price=500,
+                                             address="Likoni"
+                                             )), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
 
 
 if __name__ == '__main__':

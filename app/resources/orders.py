@@ -91,4 +91,4 @@ class Order(Resource):
     def delete(self, order_id):
         global orders
         orders = list(filter(lambda x: x['order_id'] != order_id, orders))
-        return {'message': 'Order deleted'}
+        return {'message': 'Order deleted'}, 200
