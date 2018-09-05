@@ -2,16 +2,15 @@ from flask import Flask, request
 from flask_restful import Resource, reqparse
 
 
-
 from app.model import orders
-
 
 
 class Orders(Resource):
     """ Create method to get all orders """
 
     def get(self):
-        return {'orders': orders}
+        return {'orders': orders}, 200
+
 
 class Order(Resource):
 
@@ -64,9 +63,9 @@ class Order(Resource):
                 'price': data['price'],
                 'address': data['address']
             }
-            orders.append(order)
+            orders.append(order), 200
         else:
-            order.update(data)
+            order.update(data), 202
         return order
 
     """ Delete a specific from the orders list """
@@ -75,4 +74,3 @@ class Order(Resource):
         global orders
         orders = list(filter(lambda x: x['order_id'] != order_id, orders))
         return {'message': 'Order deleted'}
-

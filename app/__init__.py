@@ -14,7 +14,9 @@ def create_app(config_name):
     app.url_map.strict_slashes = False
 
     from app.resources.orders import Order
+    from app.resources.orders import Orders
 
     api.add_resource(Order, '/api/v1/orders/<int:order_id>')
+    api.add_resource(Orders, '/api/v1/orders')
 
     return app
