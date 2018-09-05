@@ -18,8 +18,26 @@ class Order(Resource):
 
     parser = reqparse.RequestParser()
     parser.add_argument(
+        'name',
+        type=str,
+        required=True,
+        help="This field cannot be left blank"
+    )
+    parser.add_argument(
+        'type',
+        type=str,
+        required=True,
+        help="This field cannot be left blank"
+    )
+    parser.add_argument(
         'price',
         type=float,
+        required=True,
+        help="This field cannot be left blank"
+    )
+    parser.add_argument(
+        'address',
+        type=str,
         required=True,
         help="This field cannot be left blank"
     )
