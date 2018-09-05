@@ -1,4 +1,7 @@
-# fast-food-v1
+
+# Fast-Food-v1
+
+[![Build Status](https://travis-ci.com/danielotieno/fast-food-v1.svg?branch=api)](https://travis-ci.com/danielotieno/fast-food-v1)
 
 ## API Endpoints
 
