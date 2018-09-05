@@ -81,9 +81,9 @@ class Order(Resource):
                 'price': data['price'],
                 'address': data['address']
             }
-            orders.append(order), 200
+            orders.append(order), 201
         else:
-            order.update(data), 202
+            order.update(data), 200
         return order
 
     """ Delete a specific from the orders list """
