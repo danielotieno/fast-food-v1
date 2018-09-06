@@ -20,5 +20,7 @@ def create_app(config_name):
 
     api.add_resource(Order, '/api/v1/orders/<int:order_id>')
     api.add_resource(Orders, '/api/v1/orders')
+    api.add_resource(Signup, '/api/v1/auth/signup')
+    api.add_resource(Login, '/api/v1/auth/login')
 
     return app
