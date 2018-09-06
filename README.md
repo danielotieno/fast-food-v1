@@ -1,8 +1,9 @@
+[![Build Status](https://travis-ci.com/danielotieno/fast-food-v1.svg?branch=api)](https://travis-ci.com/danielotieno/fast-food-v1)
+[![Coverage Status](https://coveralls.io/repos/github/danielotieno/fast-food-v1/badge.svg?branch=api)](https://coveralls.io/github/danielotieno/fast-food-v1?branch=api)
 
 # Fast-Food-v1
 
-[![Build Status](https://travis-ci.com/danielotieno/fast-food-v1.svg?branch=api)](https://travis-ci.com/danielotieno/fast-food-v1)
-
+Fast-Food-Fast is a food delivery service app for a restaurant.
 
 ## API Endpoints
 
