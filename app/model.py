@@ -34,11 +34,17 @@ class User(Base):
         self.last_modified = datetime.utcnow().isoformat()
 
     def save(self):
-        '''Method for saving user registration details'''
+        """ Method for saving user registration details """
         setattr(self, 'id', db.user_count + 1)
         db.users.update({self.id: self})
         db.user_count += 1
         return self.view()
+
+    def validate_password(self, password):
+        """ Method for validating user password """
+        if check_password_hash(self.password, password):
+            return True
+        return False
 
 
 orders = [
