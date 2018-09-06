@@ -26,12 +26,19 @@ class Start():
 class User(Base):
     """ This class defines the user data model """
     def __init__(self, username, password, email):
+        self.id = None
         self.username = username
         self.password = generate_password_hash(password)
         self.email = email
-        self.id = None
         self.created_at = datetime.utcnow().isoformat()
         self.last_modified = datetime.utcnow().isoformat()
+
+    def save(self):
+        '''Method for saving user registration details'''
+        setattr(self, 'id', db.user_count + 1)
+        db.users.update({self.id: self})
+        db.user_count += 1
+        return self.view()
 
 
 orders = [
