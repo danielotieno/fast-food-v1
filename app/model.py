@@ -23,7 +23,7 @@ class Start():
         setattr(self, 'last_modified', datetime.utcnow().isoformat())
         return self.view()
 
-class User(Base):
+class User(Start):
     """ This class defines the user data model """
     def __init__(self, username, password, email):
         self.id = None
@@ -46,9 +46,10 @@ class User(Base):
             return True
         return False
 
-     def delete(self):
-            """ Method for deleting a user """
+    def delete(self):
+        """ Method for deleting a user """
         del db.users[self.id]
+
 
     def view(self):
         """ Method to jsonify object user """

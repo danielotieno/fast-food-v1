@@ -48,15 +48,15 @@ class Signup(Resource):
 
         return {'message': 'Successfully registered', 'user': user}, 201
 
-    class Login(Resource):
-        """ Resource for user login """
+class Login(Resource):
+    """ Resource for user login """
     parser = reqparse.RequestParser()
     parser.add_argument('username', required=True,help='Username cannot be blank', type=str)
     parser.add_argument('password', required=True, help='Password cannot be blank')
 
     def post(self):
         """ Method for registered user to login """
-        args = LoginResource.parser.parse_args()
+        args = Login.parser.parse_args()
         username = args["username"]
         password = args["password"]
         if is_blank(username) or is_blank(password) == '':
@@ -66,6 +66,6 @@ class Signup(Resource):
         if not user:
             return {'message': 'User unavailable'}, 404
         if user.validate_password(password):
-            token = user.generate_token()
-            return {"message": "You are successfully logged in", 'user': user.view(), 'token':token}, 200
+            return {"message": "You are successfully logged in", 'user': user.view()}, 200
         return {"message": "Username or password is wrong."}, 401
+

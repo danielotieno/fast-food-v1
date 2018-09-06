@@ -16,7 +16,7 @@ def create_app(config_name):
     from app.resources.orders import Order
     from app.resources.orders import Orders
     from app.resources.user import Signup
-    from app.resources.orders import Login
+    from app.resources.user import Login
 
     api.add_resource(Order, '/api/v1/orders/<int:order_id>')
     api.add_resource(Orders, '/api/v1/orders')
