@@ -46,6 +46,11 @@ class User(Base):
             return True
         return False
 
+     def delete(self):
+            """ Method for deleting a user """
+        del db.users[self.id]
+
+
 
 orders = [
 
