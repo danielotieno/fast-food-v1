@@ -2,7 +2,7 @@
 # Fast-Food-v1
 
 [![Build Status](https://travis-ci.com/danielotieno/fast-food-v1.svg?branch=api)](https://travis-ci.com/danielotieno/fast-food-v1)
-[![Coverage Status](https://coveralls.io/repos/github/danielotieno/fast-food-v1/badge.svg?branch=api)](https://coveralls.io/github/danielotieno/fast-food-v1?branch=api)
+
 
 ## API Endpoints
 
