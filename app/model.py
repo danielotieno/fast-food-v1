@@ -50,6 +50,37 @@ class User(Base):
             """ Method for deleting a user """
         del db.users[self.id]
 
+    def view(self):
+        """ Method to jsonify object user """
+        keys = ['username', 'email', 'id']
+        return {key: getattr(self, key) for key in keys}
+
+    @classmethod
+    def get(cls, id):
+        """ Method for getting user by id """
+        user = db.users.get(id)
+        if not user:
+            return {'message': 'User does not exist.'}
+        return user
+
+    @classmethod
+    def get_user_by_email(cls, email):
+        """ Method for getting user by email """
+        for id_ in db.users:
+            user = db.users.get(id_)
+            if user.email == email:
+                return user
+        return None
+
+    @classmethod
+    def get_user_by_username(cls, username):
+        """ Method for getting user by username """
+        for id_ in db.users:
+            user = db.users.get(id_)
+            if user.username == username:
+                return user
+        return None
+
 
 
 orders = [
