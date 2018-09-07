@@ -13,7 +13,6 @@ class Orders(Resource):
 
 
 class Order(Resource):
-
     """ Create Request parsing interface for price """
 
     parser = reqparse.RequestParser()
@@ -42,15 +41,13 @@ class Order(Resource):
         help="This field cannot be left blank"
     )
 
-    """ Get a specific Order method """
-
     def get(self, order_id):
+        """ Get a specific Order method """
         order = next(filter(lambda x: x['order_id'] == order_id, orders), None)
         return {'order': order}, 200 if order else 404
 
-    """ Place a new Order method """
-
     def post(self, order_id):
+        """ Place a new Order method """
         if next(filter(lambda x: x['order_id'] == order_id, orders), None):
             return {'message': "The order with order id '{}' already exists.".format(order_id)}, 400
 
@@ -66,9 +63,8 @@ class Order(Resource):
         orders.append(order)
         return order, 201
 
-    """ Upadate status of a specific order method """
-
     def put(self, order_id):
+        """ Upadate status of a specific order method """
 
         data = Order.parser.parse_args()
 
@@ -86,9 +82,8 @@ class Order(Resource):
             order.update(data), 200
         return order
 
-    """ Delete a specific from the orders list """
-
     def delete(self, order_id):
+        """ Delete a specific from the orders list """
         global orders
         orders = list(filter(lambda x: x['order_id'] != order_id, orders))
         return {'message': 'Order deleted'}, 200

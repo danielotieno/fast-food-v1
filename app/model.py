@@ -2,8 +2,10 @@ from datetime import datetime
 from flask import current_app
 from werkzeug.security import check_password_hash, generate_password_hash
 
+
 class DATABASE():
     """ Class to create data structure to store user data """
+
     def __init__(self):
         self.users = {}
         self.user_count = 0
@@ -11,11 +13,14 @@ class DATABASE():
     def drop(self):
         self.__init__()
 
-""" create a new instance of the class and assigns db """
+
+# create a new instance of the class and assigns db
 db = DATABASE()
+
 
 class Start():
     """ Start class to be inherited by User Class"""
+
     def update(self, data):
         # Validate keys before passing to data.
         for key in data:
@@ -23,8 +28,10 @@ class Start():
         setattr(self, 'last_modified', datetime.utcnow().isoformat())
         return self.view()
 
+
 class User(Start):
     """ This class defines the user data model """
+
     def __init__(self, username, password, email):
         self.id = None
         self.username = username
@@ -49,7 +56,6 @@ class User(Start):
     def delete(self):
         """ Method for deleting a user """
         del db.users[self.id]
-
 
     def view(self):
         """ Method to jsonify object user """
@@ -82,12 +88,12 @@ class User(Start):
                 return user
         return None
 
+
 def is_blank(var):
-    '''checks if any required field is blank'''
+    """checks if any required field is blank"""
     if var.strip() == '':
         return 'All fields are required'
     return None
-
 
 
 orders = [
