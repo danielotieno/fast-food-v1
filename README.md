@@ -10,9 +10,12 @@ Fast-Food-Fast is a food delivery service app for a restaurant.
 
 ## API Endpoints
 
-| EndPoint              | Functionality                  |
-| --------------------- | ------------------------------ |
-| GET /orders           | Get all the orders.            |
-| GET /orders/<orderId> | Fetch a specific order         |
-| POST /orders          | Place a new order.             |
-| PUT /orders/<orderId> | Update the status of an order. |
+| EndPoint              | Functionality                    |
+| --------------------- | -------------------------------- |
+| GET /orders           | Get all the orders.              |
+| GET /orders/<orderId> | Fetch a specific order           |
+| POST /orders          | Place a new order.               |
+| PUT /orders/<orderId> | Update the status of an order.   |
+| DEL /orders/<orderId> | Delete a specific order.         |
+| POST /signup          | Register a new user              |
+| POST /login           | Enables registered user to login |
