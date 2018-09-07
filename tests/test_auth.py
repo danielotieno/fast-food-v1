@@ -59,3 +59,14 @@ class TestAuth(EntryClass):
         result = json.loads(response.data.decode())
         self.assertEqual(result["message"],
                          "Username should be atleast 4 characters")
+
+    def test_user_cannot_register_with_wrong_email_format(self):
+        """Test API cannot successfully register user if email is invalid(POST request)"""
+        response = self.client.post(SIGNUP_URL,
+                                    data=json.dumps(
+                                        {'username': 'dannyb', 'email': 'danny@', 'password': 'pass254'}),
+                                    content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+        result = json.loads(response.data.decode())
+        self.assertEqual(
+            result["message"], "Invalid email. Ensure email is of the form example@mail.com")
