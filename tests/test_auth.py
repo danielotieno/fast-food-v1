@@ -91,3 +91,26 @@ class TestAuth(EntryClass):
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.data.decode())
         self.assertEqual(result["message"], "You are successfully logged in")
+
+    def test_login_for_user_not_registered(self):
+        """ Test login for Non registered user """
+        response = self.client.post(LOGIN_URL,
+                                    data=json.dumps(
+                                        {'username': 'otieno', 'password': 'otieno254'}),
+                                    content_type='application/json')
+        self.assertEqual(response.status_code, 404)
+        result = json.loads(response.data.decode())
+        self.assertEqual(result['message'], 'User unavailable')
+
+    def test_wrong_password(self):
+        """Test for authenication when password is wrong
+        User should not be able to login
+        """
+        self.test_user.save()
+        response = self.client.post(LOGIN_URL,
+                                    data=json.dumps(
+                                        {'username': 'dannyb', 'password': 'andela'}),
+                                    content_type='application/json')
+        self.assertEqual(response.status_code, 401)
+        result = json.loads(response.data.decode())
+        self.assertEqual(result['message'], 'Username or password is wrong.')
