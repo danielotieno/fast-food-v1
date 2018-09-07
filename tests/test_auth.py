@@ -37,3 +37,25 @@ class TestAuth(EntryClass):
         self.assertEqual(response2.status_code, 203)
         result = json.loads(response2.data.decode())
         self.assertEqual(result["message"], "User already exists")
+
+    def test_user_cannot_register_with_short_password(self):
+        """ Test User cannot register if password is less than 8 characters """
+        response = self.client.post(SIGNUP_URL,
+                                    data=json.dumps(
+                                        {'username': 'dannyb', 'email': 'oti@gmail.com', 'password': 'pass'}),
+                                    content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+        result = json.loads(response.data.decode())
+        self.assertEqual(result["message"],
+                         "Password should be atleast 8 characters")
+
+    def test_user_cannot_register_with_short_username(self):
+        """ Test user can register with username less than 4 charcters """
+        response = self.client.post(SIGNUP_URL,
+                                    data=json.dumps(
+                                        {'username': 'dan', 'email': 'oti@gmail.com', 'password': 'pass12345'}),
+                                    content_type='application/json')
+        self.assertEqual(response.status_code, 400)
+        result = json.loads(response.data.decode())
+        self.assertEqual(result["message"],
+                         "Username should be atleast 4 characters")
