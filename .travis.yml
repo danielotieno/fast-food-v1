@@ -8,7 +8,7 @@ install:
 
 script:
   - pytest --cov=tests/
-  - codeclimate-test-reporter  .coverage
+  - codeclimate-test-reporter
 
 after_success:
   - coveralls
