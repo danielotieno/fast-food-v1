@@ -34,3 +34,11 @@ class TestUserModel(EntryClass):
         user = user.update(data=data)
         self.assertEqual(data['username'], user['username'])
         self.assertEqual(data['email'], user['email'])
+
+    def test_delete_user(self):
+        """ Test for deleting an user """
+        self.user1.save()
+        self.assertEqual(1, len(db.users))
+        user = User.get(id=1)
+        user.delete()
+        self.assertEqual(0, len(db.users))
