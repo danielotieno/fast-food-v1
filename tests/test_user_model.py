@@ -13,6 +13,11 @@ class TestUserModel(EntryClass):
         keys = sorted(list(user.view().keys()))
         self.assertListEqual(keys, sorted(['username', 'email', 'id']))
 
+    def test_get_unavailable_user(self):
+        """ Test to get un-available user """
+        user = User.get(id=4)
+        self.assertEqual('User does not exist.', user['message'])
+
     def test_can_save_user(self):
         """ Test to save user """
         user = self.user1.save()
