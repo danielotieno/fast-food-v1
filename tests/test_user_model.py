@@ -18,8 +18,19 @@ class TestUserModel(EntryClass):
         user = User.get(id=4)
         self.assertEqual('User does not exist.', user['message'])
 
-    def test_can_save_user(self):
+    def test_save_user(self):
         """ Test to save user """
         user = self.user1.save()
         self.assertEqual(1, len(db.users))
         self.assertTrue(isinstance(user, dict))
+
+    def test_update_user_details(self):
+        """ Test for updating user details """
+        data = {
+            'username': 'updatename',
+            'email': 'updatename@email.com'}
+        self.user1.save()
+        user = User.get(id=1)
+        user = user.update(data=data)
+        self.assertEqual(data['username'], user['username'])
+        self.assertEqual(data['email'], user['email'])
