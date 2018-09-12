@@ -55,10 +55,15 @@ class TestOrders(TestBase):
         """ Test to fetch a specific order by id """
 
         response = self.client.get(
-            GET_SINGLE_URL, content_type='application/json')
+            GET_SINGLE_URL, data=json.dumps(dict(order_id=1,
+                                                 name="Daniel Otieno",
+                                                 type="Mocha",
+                                                 price=350,
+                                                 address="Bamburi"
+                                                 )), content_type='application/json')
         result = json.loads(response.data.decode('utf-8'))
         print(result)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 404)
 
     def test_update_an_order(self):
         """ Test to update order status """
