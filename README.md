@@ -1,10 +1,14 @@
 # Fast-Food-v1
 
+![GitHub](https://img.shields.io/github/license/mashape/apistatus.svg)
 [![Build Status](https://travis-ci.com/danielotieno/fast-food-v1.svg?branch=develop)](https://travis-ci.com/danielotieno/fast-food-v1)
 [![Coverage Status](https://coveralls.io/repos/github/danielotieno/fast-food-v1/badge.svg?branch=develop)](https://coveralls.io/github/danielotieno/fast-food-v1?branch=develop)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/e23ec45d5b4e814e4310/test_coverage)](https://codeclimate.com/github/danielotieno/fast-food-v1/test_coverage)
 [![Maintainability](https://api.codeclimate.com/v1/badges/e23ec45d5b4e814e4310/maintainability)](https://codeclimate.com/github/danielotieno/fast-food-v1/maintainability)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1ae2f2e1b9f0439f8e5c3b045aac53d1)](https://www.codacy.com/app/danielotieno/fast-food-v1?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=danielotieno/fast-food-v1&amp;utm_campaign=Badge_Grade)
+
+
+
 
 Fast-Food-Fast is a food delivery service app for a restaurant.
 
