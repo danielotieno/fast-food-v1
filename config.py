@@ -5,20 +5,24 @@ import os
 class Config():
     """Parent configuration class"""
     DEBUG = False
+    SECRET = os.getenv('SECRET_KEY')
 
 
 class Development(Config):
     """Configuration for development environment"""
+    DEBUG = True
 
 
 class Testing(Config):
     """Configuration for testing environment"""
+    TESTING = True
     DEBUG = True
 
 
 class Production(Config):
     """Configuration for production environment"""
     DEBUG = False
+    TESTING = False
 
 
 app_config = {
