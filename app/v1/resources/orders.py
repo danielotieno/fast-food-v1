@@ -2,7 +2,7 @@ from flask import Flask, request
 from flask_restful import Resource, reqparse
 
 
-from app.model import orders
+from app.v1.model import orders
 
 
 class Orders(Resource):

@@ -1,4 +1,4 @@
-from app.model import User, db
+from app.v1.model import User, db
 from .entry import EntryClass
 
 

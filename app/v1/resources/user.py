@@ -2,7 +2,7 @@ from flask import Flask
 from flask_restful import Resource, reqparse
 import re
 
-from app.model import User, is_blank
+from app.v1.model import User, is_blank
 
 
 class Signup(Resource):

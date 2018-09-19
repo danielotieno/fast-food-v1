@@ -2,9 +2,9 @@ import unittest
 import json
 from flask_testing import TestCase
 
-from app import create_app
+from app.v1 import create_app
 
-from app.resources.orders import Order, Orders
+from app.v1.resources.orders import Order, Orders
 
 ADD_ENTRY_URL = '/api/v1/orders/7'
 ADD_UPDATE_URL = '/api/v1/orders/8'

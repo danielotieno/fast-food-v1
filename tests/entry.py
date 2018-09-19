@@ -1,8 +1,8 @@
 import unittest
 import json
 
-from app import create_app
-from app.model import User, db
+from app.v1 import create_app
+from app.v1.model import User, db
 
 SIGNUP_URL = '/api/v1/auth/signup'
 LOGIN_URL = '/api/v1/auth/login'
