@@ -13,7 +13,7 @@ class User(object):
     """ A class to handle activities related to a user """
 
     def __init__(self):
-        # Data structure list to hold user details
+        """ Data structure list to hold user details """
         self.users = []
 
     def user_register(self, username, email, password, confirm_password):
