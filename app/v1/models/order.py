@@ -3,7 +3,7 @@ This model defines a order class and it's methods
 It also create data structure to store order data
 
 """
-
+# Local imports
 import re
 from datetime import date, datetime
 import uuid
