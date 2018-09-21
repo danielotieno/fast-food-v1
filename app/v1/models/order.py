@@ -27,7 +27,7 @@ class Orders():
     def validate_date(self, order_date):
         """ Check if the given date is less than the current date """
         date = datetime.strptime(order_date, '%Y-%m-%d').date()
-        if date < date.today():
+        if date != date.today():
             return False
         return True
 

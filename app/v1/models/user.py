@@ -16,41 +16,53 @@ class User(object):
         """ Data structure list to hold user details """
         self.users = []
 
-    def user_register(self, username, email, password, confirm_password):
-        """ A method to register users with correct and valid details """
+    def validate_data(self, username, email, password, confirm_password):
+        """ A method to validate username and password details """
+        if not re.match("^[a-zA-Z0-9_]*$", username)\
+                or not re.match("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", email):
+            return "Username or email can only contain alphanumeric characters"
+        elif len(username.strip()) < 4:
+            return "Your username should be atleast four characters long"
+        elif len(password) < 8:
+            return "Your password should be atleast eight characters long"
+        elif password != confirm_password:
+            return "Your passwords must match"
+        else:
+            return True
+
+    def add_user_to_user_list(self, username, email, password):
 
         # empty dictionary to hold users details created
         user_details = {}
 
+        user_details['username'] = username
+        user_details['email'] = email
+        user_details['password'] = password
+        user_details['id'] = uuid.uuid1()
+        self.users.append(user_details)
+
+    def user_register(self, username, email, password, confirm_password):
+        """ A method to register users with correct and valid details """
+
         # check whether a user with that username exists
+        valid_data = self.validate_data(
+            username, email, password, confirm_password)
+        if valid_data:
+            # Register user when details are valid
+            if len(self.users) > 0:
+                for user in self.users:
+                    if username == user['username'] or user['email'] == email:
+                        return "Username or email already exists."
 
-        for user in self.users:
-            if username == user['username'] or user['email'] == email:
-                return "Username or email already exists."
-
-        else:
-            # validations for username and password
-            if not re.match("^[a-zA-Z0-9_]*$", username)\
-                    or not re.match("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", email):
-                return "Username or email can only contain alphanumeric characters"
-
-            elif len(username.strip()) < 4:
-                return "username must be more than 4 characters"
-
-            elif password != confirm_password:
-                return "passwords does not match"
-
-            elif len(password) < 8:
-                return "Password too short to be accepted"
-
+                    self.add_user_to_user_list(username, email, password)
+                    return "Registration successfull"
+                # if the list is empty
             else:
-                # Register user when details are valid
-                user_details['username'] = username
-                user_details['email'] = email
-                user_details['password'] = password
-                user_details['id'] = uuid.uuid1()
-                self.users.append(user_details)
+                self.add_user_to_user_list(username, email, password)
                 return "Registration successfull"
+
+        # return data  validation  error message
+        return valid_data
 
     def user_login(self, username, password):
         """ A method for a user to login with correct details """
