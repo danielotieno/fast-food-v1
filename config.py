@@ -17,6 +17,7 @@ class Testing(Config):
     """Configuration for testing environment"""
     TESTING = True
     DEBUG = True
+    SECRET = os.getenv('SECRET_KEY')
 
 
 class Production(Config):
