@@ -47,3 +47,9 @@ class Order():
     def view_all_orders(self):
         """ A method to return a list of all orders """
         return self.orders
+
+    def filter_by_orderedby(self, username):
+        """ Filter order by a particular user """
+        new_orders = [
+            order for order in self.orders if order['orderedby'] == username]
+        return new_orders
