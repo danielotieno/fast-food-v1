@@ -43,3 +43,7 @@ class Order():
             self.order_details['id'] = uuid.uuid1()
             self.orders.append(self.order_details)
             return "Successfull order created"
+
+    def view_all_orders(self):
+        """ A method to return a list of all orders """
+        return self.orders
