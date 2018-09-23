@@ -15,3 +15,13 @@ food_order_details = []
 
 class FoodOrderDetails():
     """ A class to handle actions related to food orders details """
+
+    def create(self, order_id, food_item, count, cost):
+        """ A method for creating food order details """
+
+        self.id = uuid.uuid1()
+        self.order_id = order_id
+        self.food_item = food_item
+        self.count = count
+        self.cost = cost
+        self.date = datetime.now().replace(second=0, microsecond=0)

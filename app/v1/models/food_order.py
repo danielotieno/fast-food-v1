@@ -14,7 +14,7 @@ import uuid
 orders = []
 
 
-class Order():
+class FoodOrder():
     """ A class to handle actions related to orders """
 
     def validate_date(self, order_date):
@@ -31,11 +31,11 @@ class Order():
         if self.validate_date(order_date):
             return "order can only have a present date"
         else:
+            self.order_id = uuid.uuid1()
             self.orderedby = orderedby
             self.address = address
             self.order_date = order_date
             self.date_created = date.today().isoformat()
-            self.order_id = uuid.uuid1()
             self.total_cost = total_cost
             return "Successfull order created"
 
@@ -48,7 +48,7 @@ class Order():
     def filter_by_orderedby(self, username):
         """ Filter order by a particular user """
         new_orders = [
-            order for order in orders if order['orderedby'] == username]
+            order for order in orders if self.orderedby == username]
         return new_orders
 
     def get_order_by_id(self, order_id):
