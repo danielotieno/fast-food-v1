@@ -16,3 +16,10 @@ class Order():
     def __init__(self):
         """ Data structure to hold orders """
         self.orders = []
+
+    def validate_date(self, order_date):
+        """ Check if the given date is not the current date """
+        date = datetime.strptime(order_date, '%Y-%m-%d').date()
+        if date != date.today():
+            return False
+        return True
