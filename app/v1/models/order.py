@@ -10,7 +10,7 @@ import re
 from datetime import date, datetime
 import uuid
 
-""" Data structure to hold orders """
+# Data structure to hold orders
 orders = []
 
 
