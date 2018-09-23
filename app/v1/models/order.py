@@ -61,7 +61,7 @@ class Order():
                 return order
         return False
 
-    def update(self, user_id, food_id, address, order_date, orderedby):
+    def update(self, order_id, user_id, food_id, address, order_date, orderedby):
         """ Update a specific order with a given id """
         for order in self.orders:
             if order['id'] == order_id:
@@ -81,3 +81,12 @@ class Order():
                     return "Successfull order updated"
         else:
             return "No order with such id"
+
+    def delete(self, order_id):
+        """ A method to delete a specific order from a list """
+        for order in self.orders:
+            if order['id'] == order_id:
+                self.orders.remove(order)
+                return "Successfull order deleted"
+        else:
+            return "Order not found"
