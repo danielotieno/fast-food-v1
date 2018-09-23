@@ -53,3 +53,10 @@ class Order():
         new_orders = [
             order for order in self.orders if order['orderedby'] == username]
         return new_orders
+
+    def get_order_by_id(self, order_id):
+        """ A method to get order by id """
+        for order in self.orders:
+            if order['id'] == order_id:
+                return order
+        return False
