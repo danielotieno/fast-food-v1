@@ -60,3 +60,24 @@ class Order():
             if order['id'] == order_id:
                 return order
         return False
+
+    def update(self, user_id, food_id, address, order_date, orderedby):
+        """ Update a specific order with a given id """
+        for order in self.orders:
+            if order['id'] == order_id:
+                self.orders.remove(order)
+                if self.validate_date(order_date):
+                    return "Order can only have the current date"
+                else:
+                    self.order_details['user_id'] == user_id
+                    self.order_details['food_id'] == food_id
+                    self.order_details['address'] == address
+                    self.order_details['order_date'] == order_date
+                    self.order_details['date_created'] = date.today(
+                    ).isoformat()
+                    self.order_details['orderedby'] == orderedby
+                    order['id'] = order_id
+                    self.orders.append(self.order_details)
+                    return "Successfull order updated"
+        else:
+            return "No order with such id"
