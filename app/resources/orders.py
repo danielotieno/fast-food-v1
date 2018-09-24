@@ -57,6 +57,7 @@ class Order(Resource):
             'order_id': order_id,
             'name': data['name'],
             'type': data['type'],
+            'status': data['status'],
             'price': data['price'],
             'address': data['address']
         }
@@ -72,10 +73,7 @@ class Order(Resource):
         if order is None:
             order = {
                 'order_id': order_id,
-                'name': data['name'],
-                'type': data['type'],
-                'price': data['price'],
-                'address': data['address']
+                'status': data['status']
             }
             orders.append(order), 201
         else:
