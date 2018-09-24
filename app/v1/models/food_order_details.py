@@ -13,7 +13,7 @@ import uuid
 food_order_details = []
 
 
-class FoodOrderDetails():
+class FoodOrderDetail():
     """ A class to handle actions related to food orders details """
 
     def create(self, order_id, food_item, count, cost):

@@ -14,8 +14,12 @@ import uuid
 orders = []
 
 
-class FoodOrder():
+class FoodOrder:
     """ A class to handle actions related to orders """
+
+    def __init__(self, orderedby):
+        self.id = uuid.uuid1()
+        self.orderedby = orderedby
 
     def validate_date(self, order_date):
         """ Check if the given date is not the current date """
@@ -24,20 +28,28 @@ class FoodOrder():
             return False
         return True
 
-    def create(self, orderedby, address, order_date, total_cost):
+    def create(self):
         """A method for placing an order """
 
-        # validate order date
-        if self.validate_date(order_date):
-            return "order can only have a present date"
-        else:
-            self.order_id = uuid.uuid1()
-            self.orderedby = orderedby
-            self.address = address
-            self.order_date = order_date
-            self.date_created = date.today().isoformat()
-            self.total_cost = total_cost
-            return "Successfull order created"
+        # # validate order date
+        # if self.validate_date(order_date):
+        #     return "order can only have a present date"
+        # else:
+        #     self.order_id = uuid.uuid1()
+        #     self.orderedby = orderedby
+        #     self.address = address
+        #     self.order_date = date.today().isoformat()
+        #     self.total_cost = total_cost
+        #     return "Successfull order created"
+        order = dict(
+            foodname=self.foodname,
+            count=self.count,
+            price=self.price
+        )
+        return orders.append(order)
+
+    def set_total_cost(self, cost):
+        self.total_cost = cost
 
     def view_all_orders(self):
         """ A method to return a list of all orders """
