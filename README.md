@@ -24,7 +24,9 @@ Fast-Food-Fast is a food delivery service app for a restaurant.
 ### Technologies used to build the application
 
 [Python 3.6](https://docs.python.org/3.6/)
+
 [Flask](http://flask.pocoo.org/)
+
 [Flask Restful](https://flask-restful.readthedocs.io/en/latest/)
 
 #### How should this be manually tested
