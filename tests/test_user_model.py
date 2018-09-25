@@ -1,4 +1,4 @@
-from app.model import User, db
+from app.model import User, DB
 from .entry import EntryClass
 
 
@@ -21,7 +21,7 @@ class TestUserModel(EntryClass):
     def test_save_user(self):
         """ Test to save user """
         user = self.user1.save()
-        self.assertEqual(1, len(db.users))
+        self.assertEqual(1, len(DB.users))
         self.assertTrue(isinstance(user, dict))
 
     def test_update_user_details(self):
@@ -38,7 +38,7 @@ class TestUserModel(EntryClass):
     def test_delete_user(self):
         """ Test for deleting an user """
         self.user1.save()
-        self.assertEqual(1, len(db.users))
+        self.assertEqual(1, len(DB.users))
         user = User.get(id=1)
         user.delete()
-        self.assertEqual(0, len(db.users))
+        self.assertEqual(0, len(DB.users))

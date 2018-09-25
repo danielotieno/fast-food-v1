@@ -2,7 +2,7 @@ import unittest
 import json
 
 from app import create_app
-from app.model import User, db
+from app.model import User, DB
 
 SIGNUP_URL = '/api/v1/auth/signup'
 LOGIN_URL = '/api/v1/auth/login'
@@ -48,7 +48,7 @@ class EntryClass(unittest.TestCase):
 
     def tearDown(self):
         """ Drop the DATABASE structure """
-        db.drop()
+        DB.drop()
 
 
 if __name__ == '__main__':

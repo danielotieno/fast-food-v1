@@ -29,7 +29,7 @@ class Start():
         for key in data:
             setattr(self, key, data[key])
         setattr(self, 'last_modified', datetime.utcnow().isoformat())
-        # return self.view()
+        return self.view()
 
 
 class User(Start):
