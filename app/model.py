@@ -1,3 +1,4 @@
+from flask import jsonify, request
 from datetime import datetime
 from flask import current_app
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -96,4 +97,50 @@ def is_blank(var):
     return None
 
 
-orders = []
+class Order(object):
+    """ Create class order to hold order methods """
+
+    def __init__(self):
+        """ Initialize empty Order list"""
+        self.order_list = []
+
+    def create_order(self, name, status, price, address):
+        """Create order_item"""
+        self.order_details = {}
+
+        self.orderId = len(self.order_list)
+        self.order_details['name'] = name
+        self.order_details['status'] = status
+        self.order_details['price'] = price
+        self.order_details['address'] = address
+        self.order_details['order_id'] = self.orderId + 1
+        self.order_list.append(self.order_details)
+        return self.order_list
+
+    def get_orders(self):
+        """ get all Orders """
+        return self.order_list
+
+    def get_order_by_id(self, order_id):
+        order = next(
+            filter(lambda x: x['order_id'] == order_id, self.order_list), None)
+        return {'order': order}, 200 if order else 404
+
+    def update_an_order(self, order_id):
+        data = request.get_json()
+        order = next(
+            filter(lambda x: x['order_id'] == order_id, self.order_list), None)
+        if order is None:
+            order = {
+                'status': data['status'],
+            }
+            self.order_list.append(order), 201
+        else:
+            order.update(data), 200
+        return order
+
+    def delete_an_order(self, order_id):
+        self.order_list
+        self.order_list = list(
+            filter(lambda x: x['order_id'] != order_id, self.order_list))
+        return {'message': 'Order deleted'}, 200

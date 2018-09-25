@@ -1,18 +1,35 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_restful import Resource, reqparse
 
+from app.model import Order
 
-from app.model import orders
+orderObject = Order()
 
 
 class Orders(Resource):
     """ Create method to get all orders """
 
+    def post(self):
+        """ Place a new Order method """
+        data = request.get_json()
+        name = data['name']
+        status = data['status']
+        price = data['price']
+        address = data['address']
+
+        res = orderObject.create_order(
+            name,
+            status,
+            price,
+            address)
+        return res
+
     def get(self):
-        return {'orders': orders}, 200
+        res = orderObject.get_orders()
+        return res
 
 
-class Order(Resource):
+class OrderView(Resource):
     """ Create Request parsing interface for price """
 
     parser = reqparse.RequestParser()
@@ -49,44 +66,15 @@ class Order(Resource):
 
     def get(self, order_id):
         """ Get a specific Order method """
-        order = next(filter(lambda x: x['order_id'] == order_id, orders), None)
-        return {'order': order}, 200 if order else 404
-
-    def post(self, order_id):
-        """ Place a new Order method """
-        if next(filter(lambda x: x['order_id'] == order_id, orders), None):
-            return {'message': "The order with order id '{}' already exists.".format(order_id)}, 400
-
-        data = Order.parser.parse_args()
-
-        order = {
-            'order_id': order_id,
-            'name': data['name'],
-            'type': data['type'],
-            'status': data['status'],
-            'price': data['price'],
-            'address': data['address']
-        }
-        orders.append(order)
-        return order, 201
+        res = orderObject.get_order_by_id(order_id)
+        return res
 
     def put(self, order_id):
         """ Upadate status of a specific order method """
-
-        data = request.get_json()
-
-        order = next(filter(lambda x: x['order_id'] == order_id, orders), None)
-        if order is None:
-            order = {
-                'status': data['status'],
-            }
-            orders.append(order), 201
-        else:
-            order.update(data), 200
-        return order
+        res = orderObject.update_an_order(order_id)
+        return res
 
     def delete(self, order_id):
         """ Delete a specific from the orders list """
-        global orders
-        orders = list(filter(lambda x: x['order_id'] != order_id, orders))
-        return {'message': 'Order deleted'}, 200
+        res = orderObject.delete_an_order(order_id)
+        return res
