@@ -1,5 +1,5 @@
-from flask import jsonify, request
 from datetime import datetime
+from flask import request
 from flask import current_app
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -8,32 +8,35 @@ class DATABASE():
     """ Class to create data structure to store user data """
 
     def __init__(self):
+        """ Create a constructor to hold empty user """
         self.users = {}
         self.user_count = 0
 
     def drop(self):
+        """ A constructor to tear down a user """
         self.__init__()
 
 
 # create a new instance of the class and assigns db
-db = DATABASE()
+DB = DATABASE()
 
 
 class Start():
     """ Start class to be inherited by User Class"""
 
     def update(self, data):
-        # Validate keys before passing to data.
+        """ Validate keys before passing to data """
         for key in data:
             setattr(self, key, data[key])
         setattr(self, 'last_modified', datetime.utcnow().isoformat())
-        return self.view()
+        # return self.view()
 
 
 class User(Start):
     """ This class defines the user data model """
 
     def __init__(self, username, password, email):
+        """ A method constructor for creating an user """
         self.id = None
         self.username = username
         self.password = generate_password_hash(password)
@@ -43,9 +46,9 @@ class User(Start):
 
     def save(self):
         """ Method for saving user registration details """
-        setattr(self, 'id', db.user_count + 1)
-        db.users.update({self.id: self})
-        db.user_count += 1
+        setattr(self, 'id', DB.user_count + 1)
+        DB.users.update({self.id: self})
+        DB.user_count += 1
         return self.view()
 
     def validate_password(self, password):
@@ -56,7 +59,7 @@ class User(Start):
 
     def delete(self):
         """ Method for deleting a user """
-        del db.users[self.id]
+        del DB.users[self.id]
 
     def view(self):
         """ Method to jsonify object user """
@@ -66,7 +69,7 @@ class User(Start):
     @classmethod
     def get(cls, id):
         """ Method for getting user by id """
-        user = db.users.get(id)
+        user = DB.users.get(id)
         if not user:
             return {'message': 'User does not exist.'}
         return user
@@ -74,8 +77,8 @@ class User(Start):
     @classmethod
     def get_user_by_email(cls, email):
         """ Method for getting user by email """
-        for id_ in db.users:
-            user = db.users.get(id_)
+        for id_ in DB.users:
+            user = DB.users.get(id_)
             if user.email == email:
                 return user
         return None
@@ -83,8 +86,8 @@ class User(Start):
     @classmethod
     def get_user_by_username(cls, username):
         """ Method for getting user by username """
-        for id_ in db.users:
-            user = db.users.get(id_)
+        for id_ in DB.users:
+            user = DB.users.get(id_)
             if user.username == username:
                 return user
         return None
@@ -108,8 +111,8 @@ class Order(object):
         """Create order_item"""
         self.order_details = {}
 
-        self.orderId = len(self.order_list)
-        self.order_details['order_id'] = self.orderId + 1
+        self.orders_id = len(self.order_list)
+        self.order_details['order_id'] = self.orders_id + 1
         self.order_details['name'] = name
         self.order_details['status'] = status
         self.order_details['price'] = price
@@ -118,15 +121,17 @@ class Order(object):
         return self.order_list, 201
 
     def get_orders(self):
-        """ get all Orders """
+        """ A method to get all orders """
         return self.order_list
 
     def get_order_by_id(self, order_id):
+        """ A method to get a single order """
         order = next(
             filter(lambda x: x['order_id'] == order_id, self.order_list), None)
         return {'order': order}, 200 if order else 404
 
     def update_an_order(self, order_id):
+        """ A method to update a specific order """
         data = request.get_json()
         order = next(
             filter(lambda x: x['order_id'] == order_id, self.order_list), None)
@@ -140,6 +145,7 @@ class Order(object):
         return order
 
     def delete_an_order(self, order_id):
+        """ A method to delete a single order using order id """
         self.order_list
         self.order_list = list(
             filter(lambda x: x['order_id'] != order_id, self.order_list))

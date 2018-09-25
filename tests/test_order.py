@@ -15,6 +15,7 @@ MODIFY_URL = '/api/v1/orders/8'
 
 
 class TestBase(TestCase):
+    """ Class for setup tests """
 
     def create_app(self):
         """ Add Test configuration """

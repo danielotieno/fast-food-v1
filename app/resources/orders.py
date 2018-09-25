@@ -25,8 +25,8 @@ class Orders(Resource):
         return res
 
     def get(self):
-        res = orderObject.get_orders()
-        return res
+        get_all = orderObject.get_orders()
+        return get_all
 
 
 class OrderView(Resource):
@@ -34,15 +34,15 @@ class OrderView(Resource):
 
     def get(self, order_id):
         """ Get a specific Order method """
-        res = orderObject.get_order_by_id(order_id)
-        return res
+        get_order = orderObject.get_order_by_id(order_id)
+        return get_order
 
     def put(self, order_id):
         """ Upadate status of a specific order method """
-        res = orderObject.update_an_order(order_id)
-        return res
+        update_order = orderObject.update_an_order(order_id)
+        return update_order
 
     def delete(self, order_id):
         """ Delete a specific from the orders list """
-        res = orderObject.delete_an_order(order_id)
-        return res
+        delete_order = orderObject.delete_an_order(order_id)
+        return delete_order
