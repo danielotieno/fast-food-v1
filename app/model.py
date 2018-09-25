@@ -109,13 +109,13 @@ class Order(object):
         self.order_details = {}
 
         self.orderId = len(self.order_list)
+        self.order_details['order_id'] = self.orderId + 1
         self.order_details['name'] = name
         self.order_details['status'] = status
         self.order_details['price'] = price
         self.order_details['address'] = address
-        self.order_details['order_id'] = self.orderId + 1
         self.order_list.append(self.order_details)
-        return self.order_list
+        return self.order_list, 201
 
     def get_orders(self):
         """ get all Orders """

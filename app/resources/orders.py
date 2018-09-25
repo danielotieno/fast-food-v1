@@ -1,5 +1,5 @@
-from flask import Flask, request, jsonify
-from flask_restful import Resource, reqparse
+from flask import Flask, request
+from flask_restful import Resource
 
 from app.model import Order
 
@@ -31,38 +31,6 @@ class Orders(Resource):
 
 class OrderView(Resource):
     """ Create Request parsing interface for price """
-
-    parser = reqparse.RequestParser()
-    parser.add_argument(
-        'name',
-        type=str,
-        required=True,
-        help="This field cannot be left blank"
-    )
-    parser.add_argument(
-        'type',
-        type=str,
-        required=True,
-        help="This field cannot be left blank"
-    )
-    parser.add_argument(
-        'status',
-        type=str,
-        required=True,
-        help="This field cannot be left blank"
-    )
-    parser.add_argument(
-        'price',
-        type=float,
-        required=True,
-        help="This field cannot be left blank"
-    )
-    parser.add_argument(
-        'address',
-        type=str,
-        required=True,
-        help="This field cannot be left blank"
-    )
 
     def get(self, order_id):
         """ Get a specific Order method """

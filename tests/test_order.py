@@ -4,7 +4,7 @@ from flask_testing import TestCase
 
 from app import create_app
 
-from app.resources.orders import Order, Orders
+from app.resources.orders import Orders, OrderView
 
 ADD_ENTRY_URL = '/api/v1/orders/7'
 ADD_UPDATE_URL = '/api/v1/orders/8'
@@ -21,6 +21,17 @@ class TestBase(TestCase):
         config_name = 'testing'
         app = create_app(config_name)
 
+        self.create_order = json.dumps(dict(
+            name="Daniel Otieno",
+            status="PENDING",
+            price=350,
+            address="Bamburi"))
+        self.client = app.test_client()
+        self.client.post(
+            GET_ALL_URL,
+            data=self.create_order,
+            content_type='application/json')
+
         return app
 
 
@@ -28,18 +39,15 @@ class TestOrders(TestBase):
 
     def test_place_an_order(self):
         """ Test to place an order """
-        response = self.client.post(ADD_ENTRY_URL,
-                                    data=json.dumps(dict(order_id=7,
-                                                         name="Sharon Ngina",
-                                                         type="Pizza",
-                                                         status="PENDING",
-                                                         price=800,
-                                                         address="Changamwe"
-                                                         )),
-                                    content_type='application/json')
-        result = json.loads(response.data.decode('utf-8'))
-        print(result)
-        self.assertEqual(response.status_code, 201)
+        resource = self.client.post(
+            GET_ALL_URL,
+            data=self.create_order,
+            content_type='application/json')
+
+        data = json.loads(resource.data.decode('utf-8'))
+        print(data)
+        self.assertEqual(resource.status_code, 201)
+        self.assertEqual(resource.content_type, 'application/json')
 
     def test_get_all_orders(self):
         """ Test to get all orders """
@@ -56,38 +64,34 @@ class TestOrders(TestBase):
         """ Test to fetch a specific order by id """
 
         response = self.client.get(
-            GET_SINGLE_URL, data=json.dumps(dict(order_id=1,
-                                                 name="Daniel Otieno",
-                                                 type="Mocha",
+            GET_SINGLE_URL, data=json.dumps(dict(name="Daniel Otieno",
+                                                 status="PENDING",
                                                  price=350,
                                                  address="Bamburi"
                                                  )), content_type='application/json')
         result = json.loads(response.data.decode('utf-8'))
         print(result)
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
 
     def test_update_an_order(self):
         """ Test to update order status """
-        response = self.client.post(ADD_UPDATE_URL,
-                                    data=json.dumps(dict(order_id=8,
-                                                         name="Daniel Otieno",
-                                                         type="Mocha",
-                                                         status="PENDING",
-                                                         price=350,
-                                                         address="Bamburi"
-                                                         )), content_type='application/json')
+        response = self.client.post(GET_ALL_URL, data=self.create_order,
+                                    content_type='application/json')
+
+        data = json.loads(response.data.decode('utf-8'))
+        print(data)
         self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.content_type, 'application/json')
 
         response = self.client.put(MODIFY_URL,
-                                   data=json.dumps(dict(order_id=8,
-                                                        name="Daniel Otieno",
-                                                        type="Mocha",
-                                                        status="COMPLETE",
-                                                        price=350,
-                                                        address="Bamburi"
+                                   data=json.dumps(dict(
+                                       name="Daniel Otieno",
+                                       status="COMPLETE",
+                                       price=350,
+                                       address="Bamburi"
 
 
-                                                        )), content_type=("application/json"))
+                                   )), content_type=("application/json"))
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.data.decode())
         print(result)
