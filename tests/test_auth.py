@@ -86,7 +86,7 @@ class TestAuth(EntryClass):
         self.test_user.save()
         response = self.client.post(LOGIN_URL,
                                     data=json.dumps(
-                                        {'username': 'dannyb', 'password': 'pass12345'}),
+                                        {'email': 'dan@mail.com', 'password': 'pass12345'}),
                                     content_type='application/json')
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.data.decode())
@@ -96,7 +96,7 @@ class TestAuth(EntryClass):
         """ Test login for Non registered user """
         response = self.client.post(LOGIN_URL,
                                     data=json.dumps(
-                                        {'username': 'otieno', 'password': 'otieno254'}),
+                                        {'email': 'otieno@mail.com', 'password': 'otieno254'}),
                                     content_type='application/json')
         self.assertEqual(response.status_code, 404)
         result = json.loads(response.data.decode())
@@ -109,8 +109,8 @@ class TestAuth(EntryClass):
         self.test_user.save()
         response = self.client.post(LOGIN_URL,
                                     data=json.dumps(
-                                        {'username': 'dannyb', 'password': 'andela'}),
+                                        {'email': 'dan@mail.com', 'password': 'andela'}),
                                     content_type='application/json')
         self.assertEqual(response.status_code, 401)
         result = json.loads(response.data.decode())
-        self.assertEqual(result['message'], 'Username or password is wrong.')
+        self.assertEqual(result['message'], 'Email or password is wrong.')

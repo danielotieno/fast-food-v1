@@ -57,22 +57,22 @@ class Signup(Resource):
 class Login(Resource):
     """ Resource for user login """
     parser = reqparse.RequestParser()
-    parser.add_argument('username', required=True,
-                        help='Username cannot be blank', type=str)
+    parser.add_argument('email', required=True,
+                        help='Email cannot be blank', type=str)
     parser.add_argument('password', required=True,
                         help='Password cannot be blank')
 
     def post(self):
         """ Method for registered user to login """
         args = Login.parser.parse_args()
-        username = args["username"]
+        email = args["email"]
         password = args["password"]
-        if is_blank(username) or is_blank(password) == '':
+        if is_blank(email) or is_blank(password) == '':
             return {'message': 'All fields are required'}, 400
 
-        user = User.get_user_by_username(username)
+        user = User.get_user_by_email(email)
         if not user:
             return {'message': 'User unavailable'}, 404
         if user.validate_password(password):
             return {"message": "You are successfully logged in", 'user': user.view()}, 200
-        return {"message": "Username or password is wrong."}, 401
+        return {"message": "Email or password is wrong."}, 401

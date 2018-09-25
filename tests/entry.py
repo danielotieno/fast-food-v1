@@ -41,7 +41,7 @@ class EntryClass(unittest.TestCase):
         # User should be able to login
         res = self.client.post(LOGIN_URL,
                                data=json.dumps(
-                                   {'username': 'danny', 'password': 'test12345'}),
+                                   {'email': 'danny@gmail.com', 'password': 'test12345'}),
                                content_type='application/json')
 
         return res
