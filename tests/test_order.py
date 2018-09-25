@@ -32,6 +32,7 @@ class TestOrders(TestBase):
                                     data=json.dumps(dict(order_id=7,
                                                          name="Sharon Ngina",
                                                          type="Pizza",
+                                                         status="PENDING",
                                                          price=800,
                                                          address="Changamwe"
                                                          )),
@@ -69,19 +70,23 @@ class TestOrders(TestBase):
         """ Test to update order status """
         response = self.client.post(ADD_UPDATE_URL,
                                     data=json.dumps(dict(order_id=8,
-                                                         name="Sharon Ngina",
-                                                         type="Pizza",
-                                                         price=800,
-                                                         address="Changamwe"
+                                                         name="Daniel Otieno",
+                                                         type="Mocha",
+                                                         status="PENDING",
+                                                         price=350,
+                                                         address="Bamburi"
                                                          )), content_type='application/json')
         self.assertEqual(response.status_code, 201)
 
         response = self.client.put(MODIFY_URL,
                                    data=json.dumps(dict(order_id=8,
-                                                        name="Sharon Ngina",
-                                                        type="Pizza",
-                                                        price=500,
-                                                        address="Likoni"
+                                                        name="Daniel Otieno",
+                                                        type="Mocha",
+                                                        status="COMPLETE",
+                                                        price=350,
+                                                        address="Bamburi"
+
+
                                                         )), content_type=("application/json"))
         self.assertEqual(response.status_code, 200)
         result = json.loads(response.data.decode())

@@ -29,6 +29,12 @@ class Order(Resource):
         help="This field cannot be left blank"
     )
     parser.add_argument(
+        'status',
+        type=str,
+        required=True,
+        help="This field cannot be left blank"
+    )
+    parser.add_argument(
         'price',
         type=float,
         required=True,
@@ -67,13 +73,12 @@ class Order(Resource):
     def put(self, order_id):
         """ Upadate status of a specific order method """
 
-        data = Order.parser.parse_args()
+        data = request.get_json()
 
         order = next(filter(lambda x: x['order_id'] == order_id, orders), None)
         if order is None:
             order = {
-                'order_id': order_id,
-                'status': data['status']
+                'status': data['status'],
             }
             orders.append(order), 201
         else:
