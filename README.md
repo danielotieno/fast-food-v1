@@ -25,6 +25,10 @@ Fast-Food-Fast is a food delivery service app for a restaurant.
 
 [Python 3.6](https://docs.python.org/3.6/)
 
+[Pytest](https://docs.pytest.org/en/latest/)
+
+[Pylint](https://docs.pylint.org/en/1.6.0/installation.html)
+
 [Flask](http://flask.pocoo.org/)
 
 [Flask Restful](https://flask-restful.readthedocs.io/en/latest/)
@@ -46,6 +50,7 @@ Fork the repo here [Fork me](https://github.com/danielotieno/fast-food-v1/tree/d
 #### Install dependencies
 
 `pip install -r requirements.txt`
+`pip install pylint`
 
 #### Change directory to develop branch
 
@@ -58,6 +63,11 @@ Fork the repo here [Fork me](https://github.com/danielotieno/fast-food-v1/tree/d
 #### Running Tests
 
 `pytest -v`
+
+#### Running Pylint
+
+`pylint app`
+`pylint run.py`
 
 ### Users
 
