@@ -28,26 +28,6 @@ class FoodOrder:
             return False
         return True
 
-    def create(self):
-        """A method for placing an order """
-
-        # # validate order date
-        # if self.validate_date(order_date):
-        #     return "order can only have a present date"
-        # else:
-        #     self.order_id = uuid.uuid1()
-        #     self.orderedby = orderedby
-        #     self.address = address
-        #     self.order_date = date.today().isoformat()
-        #     self.total_cost = total_cost
-        #     return "Successfull order created"
-        order = dict(
-            foodname=self.foodname,
-            count=self.count,
-            price=self.price
-        )
-        return orders.append(order)
-
     def set_total_cost(self, cost):
         self.total_cost = cost
 

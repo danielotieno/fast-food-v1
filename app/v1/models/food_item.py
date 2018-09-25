@@ -15,13 +15,20 @@ Food_list = []
 class FoodItem():
     """ A class to handle activities related to a Food Items """
 
-    def create_food(self, food_name, food_price):
+    def create(self, food_name, food_price):
         """ A method for creating food Items """
 
         self.id = uuid.uuid1()
         self.name = food_name
         self.price = food_price
         self.date = datetime.now().replace(second=0, microsecond=0)
+
+    def get_price_by_name(self, food_name):
+        """ A method to get order by id """
+        for food in Food_list:
+            if food.food_name == food_name:
+                return food.price
+        return False
 
     def get_all_foods(self):
         """ A method to return a list of all food items  """
