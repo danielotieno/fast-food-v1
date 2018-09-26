@@ -11,16 +11,17 @@ class FoodOrderView(Resource):
     def post(self):
         """ Place a new Order method """
         orderData = request.get_json()
-        orderedby = session['username']
+        orderedby = ['username']
 
         order = FoodOrder(orderedby)
         order_id = order.id
         # loop over orderData and create order details
+        orderDetails = orderData['oderDetails']
 
         total_cost = 0
-        for order_detail_data in orderData:
-            food_name = order_detail_data['item']
-            count = order_detail_data['count']
+        for orderDetail in orderDetails:
+            food_name = orderDetail['food_item']
+            count = orderDetail['count']
             price = FoodItem().get_price_by_name(food_name)
             cost = price * count
             order_detail = FoodOrderDetail(
