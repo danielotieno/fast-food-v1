@@ -1,5 +1,5 @@
 from flask import Flask, request
-from flask_restful import Resource
+from flask_restful import Resource, reqparse
 
 from app.model import Order
 
@@ -8,18 +8,24 @@ orderObject = Order()
 
 class Orders(Resource):
     """ Create method to get all orders """
+    parser = reqparse.RequestParser()
+    parser.add_argument(
+        'name',
+        type=str,
+        required=True,
+        help="This field cannot be left blank"
+    )
 
     def post(self):
         """ Place a new Order method """
-        data = request.get_json()
+        data = Orders.parser.parse_args()
+        # data = request.get_json(force=True)
         name = data['name']
-        status = data['status']
         price = data['price']
         address = data['address']
 
         res = orderObject.create_order(
             name,
-            status,
             price,
             address)
         return res

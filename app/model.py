@@ -1,6 +1,7 @@
 from datetime import datetime
 from flask import request
 from flask import current_app
+from flask_restful import reqparse
 from werkzeug.security import check_password_hash, generate_password_hash
 
 
@@ -107,14 +108,14 @@ class Order(object):
         """ Initialize empty Order list"""
         self.order_list = []
 
-    def create_order(self, name, status, price, address):
+    def create_order(self, name, price, address):
         """Create order_item"""
         self.order_details = {}
 
         self.orders_id = len(self.order_list)
         self.order_details['order_id'] = self.orders_id + 1
         self.order_details['name'] = name
-        self.order_details['status'] = status
+        self.order_details['status'] = 'pending'
         self.order_details['price'] = price
         self.order_details['address'] = address
         self.order_list.append(self.order_details)
