@@ -9,6 +9,10 @@
 
 Fast-Food-Fast is a food delivery service app for a restaurant.
 
+## Application Demo
+
+Link to heroku [fast-chakula-fast.herokuapp.com](https://fast-chakula-fast.herokuapp.com)
+
 ## API Endpoints
 
 | EndPoint               | Functionality                    |
