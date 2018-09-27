@@ -9,13 +9,11 @@ import uuid
 import jwt
 from datetime import date, datetime, timedelta
 
+user_list = []
+
 
 class User(object):
     """ A class to handle activities related to a user """
-
-    def __init__(self):
-        """ Data structure list to hold user details """
-        self.users = []
 
     def validate_data(self, username, email, password, confirm_password):
         """ A method to validate username and password details """
@@ -31,39 +29,18 @@ class User(object):
         else:
             return True
 
-    def add_user_to_user_list(self, username, email, password):
+    def create_user(self, username, email, password):
+        self.id = uuid.uuid1()
+        self.username = username
+        self.email = email
+        self.password = password
 
-        # empty dictionary to hold users details created
-        user_details = {}
-
-        user_details['username'] = username
-        user_details['email'] = email
-        user_details['password'] = password
-        user_details['id'] = uuid.uuid1()
-        self.users.append(user_details)
-
-    def user_register(self, username, email, password, confirm_password):
-        """ A method to register users with correct and valid details """
-
-        # check whether a user with that username exists
-        valid_data = self.validate_data(
-            username, email, password, confirm_password)
-        if valid_data:
-            # Register user when details are valid
-            if len(self.users) > 0:
-                for user in self.users:
-                    if username == user['username'] or user['email'] == email:
-                        return "Username or email already exists."
-
-                    self.add_user_to_user_list(username, email, password)
-                    return "Registration successfull"
-                # if the list is empty
-            else:
-                self.add_user_to_user_list(username, email, password)
-                return "Registration successfull"
-
-        # return data  validation  error message
-        return valid_data
+    @staticmethod
+    def find_user_by_email(email):
+        for user in user_list:
+            if user.email == email:
+                return user
+        return None
 
     def user_login(self, username, password):
         """ A method for a user to login with correct details """
