@@ -110,6 +110,7 @@ class Order(object):
 
     def create_order(self, name, price, address):
         """Create order_item"""
+
         self.order_details = {}
 
         self.orders_id = len(self.order_list)
@@ -136,13 +137,14 @@ class Order(object):
         data = request.get_json()
         order = next(
             filter(lambda x: x['order_id'] == order_id, self.order_list), None)
+
         if order is None:
             order = {
                 'status': data['status'],
             }
             self.order_list.append(order), 201
         else:
-            order.update(data), 200
+            order.update(order), 200
         return order
 
     def delete_an_order(self, order_id):

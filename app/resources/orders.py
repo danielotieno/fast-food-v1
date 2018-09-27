@@ -1,33 +1,31 @@
 from flask import Flask, request
 from flask_restful import Resource, reqparse
 
-from app.model import Order
+from app.model import Order, is_blank
 
 orderObject = Order()
 
 
 class Orders(Resource):
     """ Create method to get all orders """
-    parser = reqparse.RequestParser()
-    parser.add_argument(
-        'name',
-        type=str,
-        required=True,
-        help="This field cannot be left blank"
-    )
 
     def post(self):
         """ Place a new Order method """
-        data = Orders.parser.parse_args()
-        # data = request.get_json(force=True)
+
+        data = request.get_json()
         name = data['name']
         price = data['price']
         address = data['address']
 
-        res = orderObject.create_order(
-            name,
-            price,
-            address)
+        if not data['name']:
+            return {'Error': 'Name cannot be empty'}, 404
+        elif not data['price']:
+            return {'Error': 'Price cannot be empty'}, 404
+        elif not data['address']:
+            return {'Error': 'Address field cannot be empty'}, 404
+
+        res = orderObject.create_order(name, price, address)
+
         return res
 
     def get(self):
