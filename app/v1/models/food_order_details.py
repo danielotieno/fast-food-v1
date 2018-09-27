@@ -24,4 +24,3 @@ class FoodOrderDetail():
         self.food_item = food_item
         self.count = count
         self.cost = cost
-        self.date = datetime.now().replace(second=0, microsecond=0)

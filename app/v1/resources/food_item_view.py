@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify
 from flask_restful import Resource
 
 from app.v1.models.food_order import orders, FoodOrder
@@ -12,3 +12,5 @@ class FoodItemView(Resource):
         data = request.get_json()
         food_item = FoodItem(data['name'], data['price'])
         food_list.append(food_item)
+
+        return jsonify({"message": "Food Item has been created", "Food Item": food_item.to_json()})

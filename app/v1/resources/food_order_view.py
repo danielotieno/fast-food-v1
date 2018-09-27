@@ -8,7 +8,7 @@ from app.v1.models.food_item import FoodItem
 from app.v1.models.user import User
 
 
-class FoodOrderView(Resource):
+class FoodOrdersView(Resource):
 
     def post(self):
         """ Place a new Order method """
@@ -25,7 +25,6 @@ class FoodOrderView(Resource):
                 order_details_data = order_data['oderDetails']
 
                 order = FoodOrder(email)
-                print("who placed the order", order.ordered_by)
                 order_id = order.id
 
                 # loop over orderData and create order details
@@ -39,8 +38,23 @@ class FoodOrderView(Resource):
                     food_order_details.append(order_detail)
                     total_cost += cost
                 order.set_total_cost(total_cost)
-                print(" total cost", order.total_cost)
                 orders.append(order)
                 return jsonify({"message": "order placed successful"})
+            return jsonify({"message": "please login or register to continue"})
+        return jsonify({"message": "please login or register to continue"})
+
+    def get(self):
+        "all orders for a particular user"
+        auth_header = request.headers.get('Authorization')
+        if auth_header:
+            access_token = auth_header.split(" ")[1]
+            if access_token:
+                res = User.decode_auth_token(access_token,
+                                             os.getenv('SECRET_KEY'))
+                if 'login' in res:
+                    return jsonify({"message": res})
+                email = res
+                user_orders = FoodOrder.get_user_order_by_email(email)
+                return jsonify({"orders": user_orders})
             return jsonify({"message": "please login or register to continue"})
         return jsonify({"message": "please login or register to continue"})

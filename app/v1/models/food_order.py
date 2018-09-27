@@ -20,6 +20,7 @@ class FoodOrder:
     def __init__(self, ordered_by):
         self.id = uuid.uuid1()
         self.ordered_by = ordered_by
+        self.date = datetime.now().replace(second=0, microsecond=0)
 
     def validate_date(self, order_date):
         """ Check if the given date is not the current date """
@@ -27,6 +28,18 @@ class FoodOrder:
         if date != date.today():
             return False
         return True
+
+    def to_json(self):
+        jsonified_order = {
+            "id": self.id,
+            "ordered_by": self.ordered_by,
+            "total_cost": self.total_cost,
+
+        }
+        return jsonified_order
+
+    def update_status(self, new_status):
+        self.status = new_status
 
     def set_total_cost(self, cost):
         self.total_cost = cost
@@ -37,11 +50,12 @@ class FoodOrder:
             "message": "Successful.",
             "Orders": orders}), 200
 
-    def filter_by_orderedby(self, username):
+    @staticmethod
+    def get_user_order_by_email(email):
         """ Filter order by a particular user """
-        new_orders = [
-            order for order in orders if self.ordered_by == username]
-        return new_orders
+        user_orders = [
+            order.to_json() for order in orders if order.ordered_by == email]
+        return user_orders
 
     def get_order_by_id(self, order_id):
         """ A method to get order by id """

@@ -46,11 +46,12 @@ class FoodItem():
                     "Food": food}), 200
         return False
 
-    def to_json(self, id, name, price):
+    def to_json(self):
         """convert a given food item to json"""
         json_food_item = {
             "id": self.id,
             "name": self.name,
-            "price": self.price
+            "price": self.price,
+            "date": self.date
         }
         return json_food_item
