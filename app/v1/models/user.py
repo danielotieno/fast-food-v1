@@ -4,9 +4,10 @@ It also create data structure to store user data
 
 """
 
-# local imports
 import re
 import uuid
+import jwt
+from datetime import date, datetime, timedelta
 
 
 class User(object):
