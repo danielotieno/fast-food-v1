@@ -9,7 +9,7 @@ import re
 import uuid
 
 # Data structure list to hold food details
-Food_list = []
+food_list = []
 
 
 class FoodItem():
@@ -26,7 +26,7 @@ class FoodItem():
     @staticmethod
     def get_price_by_name(food_name):
         """ A method to get order by id """
-        for food in Food_list:
+        for food in food_list:
             if food.name == food_name:
                 return food.price
         return False
@@ -35,11 +35,11 @@ class FoodItem():
         """ A method to return a list of all food items  """
         return jsonify({
             "message": "Successful.",
-            "Food": Food_list}), 200
+            "Food": food_list}), 200
 
     def get_food_item_by_id(self, food_id):
         """ A method to get fooditem by id """
-        for food in Food_list:
+        for food in food_list:
             if food.id == food_id:
                 return jsonify({
                     "message": "Successful.",

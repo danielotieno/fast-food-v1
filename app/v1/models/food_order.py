@@ -17,9 +17,9 @@ orders = []
 class FoodOrder:
     """ A class to handle actions related to orders """
 
-    def __init__(self, orderedby):
+    def __init__(self, ordered_by):
         self.id = uuid.uuid1()
-        self.orderedby = orderedby
+        self.ordered_by = ordered_by
 
     def validate_date(self, order_date):
         """ Check if the given date is not the current date """
@@ -40,7 +40,7 @@ class FoodOrder:
     def filter_by_orderedby(self, username):
         """ Filter order by a particular user """
         new_orders = [
-            order for order in orders if self.orderedby == username]
+            order for order in orders if self.ordered_by == username]
         return new_orders
 
     def get_order_by_id(self, order_id):
