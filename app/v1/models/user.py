@@ -35,6 +35,24 @@ class User(object):
         self.email = email
         self.password = password
 
+    def generate_auth_token(self, secret_key):
+        try:
+            # prepare payload
+            payload = {
+                'exp': datetime.utcnow() + timedelta(minutes=60),
+                'iat': datetime.utcnow(),
+                'sub': self.email
+            }
+            # create the jwt token using the payload and the SECRET key
+            jwt_token = jwt.encode(
+                payload,
+                secret_key,
+                algorithm='HS256'
+            )
+            return jwt_token
+        except Exception as error:
+            return str(error)
+
     @staticmethod
     def find_user_by_email(email):
         for user in user_list:
@@ -42,32 +60,29 @@ class User(object):
                 return user
         return None
 
-    def user_login(self, username, password):
+    @staticmethod
+    def user_login(email, password):
         """ A method for a user to login with correct details """
-        for user in self.users:
-            if username == user['username']:
+        for user in user_list:
+            if email == user['email']:
                 if password == user['password']:
                     return "Login successful"
                 else:
                     return "Invalid password or username"
         return "user does not exist"
 
-    def find_user_by_id(self, user_id):
+    @staticmethod
+    def find_user_by_id(user_id):
         """ Get user given user id """
-        for user in self.users:
+        for user in user_list:
             if user['id'] == user_id:
                 return user
 
-    def find_user_by_username(self, username):
-        """ Get user by username """
-        for user in self.users:
-            if user['username'] == username:
-                return user
-
-    def reset_password(self, username, newpassword):
+    @staticmethod
+    def reset_password(email, newpassword):
         """ A method to reset user password """
-        for user in self.users:
-            if user['username'] == username:
+        for user in user_list:
+            if user['email'] == email:
                 user['password'] = newpassword
                 return "successful"
             return "Incorrect username"
