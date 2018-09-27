@@ -58,3 +58,10 @@ class FoodOrdersView(Resource):
                 return jsonify({"orders": user_orders})
             return jsonify({"message": "please login or register to continue"})
         return jsonify({"message": "please login or register to continue"})
+
+
+class FoodOrderView(Resource):
+    def get(self, order_id):
+        "all orders for a particular user"
+        user_order = FoodOrder.get_order_by_id(order_id)
+        return user_order

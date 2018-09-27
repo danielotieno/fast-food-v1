@@ -57,7 +57,8 @@ class FoodOrder:
             order.to_json() for order in orders if order.ordered_by == email]
         return user_orders
 
-    def get_order_by_id(self, order_id):
+    @staticmethod
+    def get_order_by_id(order_id):
         """ A method to get order by id """
         for order in orders:
             if order.id == order_id:

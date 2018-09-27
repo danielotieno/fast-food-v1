@@ -18,9 +18,10 @@ def create_app(config_name):
     from app.v1.resources.user_view import SignupView
     from app.v1.resources.user_view import LoginView
     from app.v1.resources.food_order_view import FoodOrdersView
+    from app.v1.resources.food_order_view import FoodOrderView
     from app.v1.resources.food_item_view import FoodItemView
 
-    api.add_resource(Order, '/api/v1/orders/<int:order_id>')
+    api.add_resource(FoodOrderView, '/api/v1/orders/<order_id>')
     api.add_resource(FoodOrdersView, '/api/v1/orderss')
     api.add_resource(FoodItemView, '/api/v1/fooditem')
     api.add_resource(Orders, '/api/v1/orders')
