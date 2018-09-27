@@ -16,7 +16,7 @@ food_order_details = []
 class FoodOrderDetail():
     """ A class to handle actions related to food orders details """
 
-    def create(self, order_id, food_item, count, cost):
+    def __init__(self, order_id, food_item, count, cost):
         """ A method for creating food order details """
 
         self.id = uuid.uuid1()
