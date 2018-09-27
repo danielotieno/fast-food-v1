@@ -54,6 +54,20 @@ class User(object):
             return str(error)
 
     @staticmethod
+    def decode_auth_token(token, secret_key):
+        """Decodes the access token from the Authorization header."""
+        try:
+            # try to decode the token using our SECRET variable
+            payload = jwt.decode(token, secret_key)
+            return payload['sub']
+        except jwt.ExpiredSignatureError:
+            # the token is expired, return an error message
+            return "you were logged out. Please login"
+        except jwt.InvalidTokenError:
+            # the token is invalid, return an error message
+            return "Please register or login"
+
+    @staticmethod
     def find_user_by_email(email):
         for user in user_list:
             if user.email == email:
