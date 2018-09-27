@@ -12,7 +12,3 @@ class FoodItemView(Resource):
         data = request.get_json()
         food_item = FoodItem(data['name'], data['price'])
         food_list.append(food_item)
-
-        for food_item in food_list:
-            print(food_item.name)
-            print(food_item.price)

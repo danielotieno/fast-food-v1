@@ -50,7 +50,7 @@ class FoodOrder:
                 return order
         return False
 
-    def update(self, order_id, orderedby, address, order_date, total_cost):
+    def update(self, order_id, ordered_by, address, order_date, total_cost):
         """ Update a specific order with a given id """
         for order in orders:
 
@@ -59,7 +59,7 @@ class FoodOrder:
                 if self.validate_date(order_date):
                     return "Order can only have the current date"
                 else:
-                    self.orderedby = orderedby
+                    self.ordered_by = ordered_by
                     self.address = address
                     self.order_date = order_date
                     self.date_created = date.today().isoformat()
