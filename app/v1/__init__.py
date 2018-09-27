@@ -15,8 +15,8 @@ def create_app(config_name):
 
     from app.v1.resources.orders import Order
     from app.v1.resources.orders import Orders
-    from app.v1.resources.user import Signup
-    from app.v1.resources.user import Login
+    from app.v1.resources.user_view import SignupView
+    from app.v1.resources.user_view import LoginView
     from app.v1.resources.food_order_view import FoodOrderView
     from app.v1.resources.food_item_view import FoodItemView
 
@@ -24,7 +24,7 @@ def create_app(config_name):
     api.add_resource(FoodOrderView, '/api/v1/orderss')
     api.add_resource(FoodItemView, '/api/v1/fooditem')
     api.add_resource(Orders, '/api/v1/orders')
-    api.add_resource(Signup, '/api/v1/auth/signup')
-    api.add_resource(Login, '/api/v1/auth/login')
+    api.add_resource(SignupView, '/api/v1/auth/signup')
+    api.add_resource(LoginView, '/api/v1/auth/login')
 
     return app
