@@ -1,5 +1,5 @@
-from flask import Flask, request, session
-from flask_restful import Resource, reqparse
+from flask import Flask, request
+from flask_restful import Resource
 
 from app.v1.models.food_order import orders, FoodOrder
 from app.v1.models.food_order_details import food_order_details, FoodOrderDetail
@@ -11,22 +11,30 @@ class FoodOrderView(Resource):
     def post(self):
         """ Place a new Order method """
         orderData = request.get_json()
-        orderedby = ['username']
+        username = 'Bucky'
+        orderDetailsData = orderData['oderDetails']
 
-        order = FoodOrder(orderedby)
+        order = FoodOrder(username)
         order_id = order.id
-        # loop over orderData and create order details
-        orderDetails = orderData['oderDetails']
 
+        # loop over orderData and create order details
         total_cost = 0
-        for orderDetail in orderDetails:
-            food_name = orderDetail['food_item']
-            count = orderDetail['count']
-            price = FoodItem().get_price_by_name(food_name)
+        for data in orderDetailsData:
+            price = FoodItem.get_price_by_name(data['food_item'])
+            count = data['count']
             cost = price * count
-            order_detail = FoodOrderDetail(
-                order_id, food_name, count, cost)
-            food_order_details.append(order_detail)
+            OrderDetail = FoodOrderDetail(order_id, data['food_item'], count,
+                                          cost)
+            food_order_details.append(OrderDetail)
             total_cost += cost
         order.set_total_cost(total_cost)
         orders.append(order)
+
+        print(order.orderedby)
+        print(order.total_cost)
+
+        print('orders and their details')
+        for order in orders:
+            print('ordered by', order.orderedby)
+            print('total_cost', order.total_cost)
+            print('order id', order.id)
