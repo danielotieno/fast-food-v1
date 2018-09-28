@@ -84,7 +84,8 @@ class FoodOrder:
         else:
             return "No order with such id"
 
-    def delete(self, order_id):
+    @staticmethod
+    def delete_an_order(order_id):
         """ A method to delete a specific order from a list """
         for order in orders:
             if order.id == order_id:

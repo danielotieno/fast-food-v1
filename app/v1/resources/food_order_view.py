@@ -1,6 +1,7 @@
 import os
 from flask import Flask, request, jsonify
 from flask_restful import Resource
+import uuid
 
 from app.v1.models.food_order import orders, FoodOrder
 from app.v1.models.food_order_details import food_order_details, FoodOrderDetail
@@ -63,5 +64,10 @@ class FoodOrdersView(Resource):
 class FoodOrderView(Resource):
     def get(self, order_id):
         "all orders for a particular user"
-        user_order = FoodOrder.get_order_by_id(order_id)
-        return user_order
+        user_order = FoodOrder.get_order_by_id(uuid.UUID(order_id))
+        return user_order.to_json()
+
+    def delete(self, order_id):
+        """ Delete a specific from the orders list """
+        delete_order = FoodOrder.delete_an_order(uuid.UUID(order_id))
+        return delete_order
