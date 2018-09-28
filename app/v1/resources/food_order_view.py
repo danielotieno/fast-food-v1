@@ -40,7 +40,7 @@ class FoodOrdersView(Resource):
                     total_cost += cost
                 order.set_total_cost(total_cost)
                 orders.append(order)
-                return jsonify({"message": "order placed successful"})
+                return jsonify({"message": "order placed successful", "Order details": order.to_json()})
             return jsonify({"message": "please login or register to continue"})
         return jsonify({"message": "please login or register to continue"})
 
@@ -64,10 +64,21 @@ class FoodOrdersView(Resource):
 class FoodOrderView(Resource):
     def get(self, order_id):
         "all orders for a particular user"
-        user_order = FoodOrder.get_order_by_id(uuid.UUID(order_id))
+        user_order = FoodOrder.get_order_by_id(order_id)
         return user_order.to_json()
 
     def delete(self, order_id):
         """ Delete a specific from the orders list """
-        delete_order = FoodOrder.delete_an_order(uuid.UUID(order_id))
+        delete_order = FoodOrder.delete_an_order(order_id)
         return delete_order
+
+    def put(self, order_id):
+        """get one orde and update the status"""
+        order = FoodOrder.get_order_by_id(order_id)
+        data = request.get_json()
+        if order:
+            order.update_status(data['status'])
+
+            return jsonify({"message": "Order updated Successful", "order":
+                            order.to_json()})
+        return jsonify({"message": "order not found"})

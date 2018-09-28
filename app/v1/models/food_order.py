@@ -18,8 +18,9 @@ class FoodOrder:
     """ A class to handle actions related to orders """
 
     def __init__(self, ordered_by):
-        self.id = uuid.uuid1()
+        self.id = str(uuid.uuid1())
         self.ordered_by = ordered_by
+        self.status = 'pending'
         self.date = datetime.now().replace(second=0, microsecond=0)
 
     def validate_date(self, order_date):
@@ -31,8 +32,10 @@ class FoodOrder:
 
     def to_json(self):
         jsonified_order = {
+            "date": str(self.date),
             "id": self.id,
             "ordered_by": self.ordered_by,
+            "status": self.status,
             "total_cost": self.total_cost,
 
         }
@@ -65,24 +68,9 @@ class FoodOrder:
                 return order
         return False
 
-    def update(self, order_id, ordered_by, address, order_date, total_cost):
+    def update_order_status(self, new_status):
         """ Update a specific order with a given id """
-        for order in orders:
-
-            if order.id == order_id:
-                orders.remove(order)
-                if self.validate_date(order_date):
-                    return "Order can only have the current date"
-                else:
-                    self.ordered_by = ordered_by
-                    self.address = address
-                    self.order_date = order_date
-                    self.date_created = date.today().isoformat()
-                    self.order_id = uuid.uuid1()
-                    self.total_cost = total_cost
-                    return "Successfull order updated"
-        else:
-            return "No order with such id"
+        self.status = new_status
 
     @staticmethod
     def delete_an_order(order_id):
@@ -90,6 +78,6 @@ class FoodOrder:
         for order in orders:
             if order.id == order_id:
                 orders.remove(order)
-                return "Successfull order deleted"
+                return {"Message": "Successfull order deleted", "Order deleted": order.to_json()}
         else:
             return "Order not found"
