@@ -13,19 +13,16 @@ def create_app(config_name):
     app.config.from_object(app_config[config_name])
     app.url_map.strict_slashes = False
 
-    from app.v1.resources.orders import Order
-    from app.v1.resources.orders import Orders
     from app.v1.resources.user_view import SignupView
     from app.v1.resources.user_view import LoginView
     from app.v1.resources.food_order_view import FoodOrdersView
     from app.v1.resources.food_order_view import FoodOrderView
     from app.v1.resources.food_item_view import FoodItemView
 
+    api.add_resource(SignupView, '/api/v1/user/signup')
+    api.add_resource(LoginView, '/api/v1/user/login')
+    api.add_resource(FoodOrdersView, '/api/v1/orders')
     api.add_resource(FoodOrderView, '/api/v1/orders/<order_id>')
-    api.add_resource(FoodOrdersView, '/api/v1/orderss')
     api.add_resource(FoodItemView, '/api/v1/fooditem')
-    api.add_resource(Orders, '/api/v1/orders')
-    api.add_resource(SignupView, '/api/v1/auth/signup')
-    api.add_resource(LoginView, '/api/v1/auth/login')
 
     return app
