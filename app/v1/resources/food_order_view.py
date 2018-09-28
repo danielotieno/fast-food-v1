@@ -76,14 +76,14 @@ class FoodOrderView(Resource):
         return jsonify({"message": "you are not allowed to view this order"})
 
     def put(self, order_id):
-        """get one orde and update the status"""
+        """get one order and update the status"""
         order = FoodOrder.get_order_by_id(order_id)
         data = request.get_json()
         if order:
             order.update_status(data['status'])
             return jsonify({"message": "Order updated Successful", "order":
                             order.to_json()})
-        return jsonify({"message": "order not foun"})
+        return jsonify({"message": "order not found"})
 
     def delete(self, order_id):
         """ Delete a specific from the orders list """

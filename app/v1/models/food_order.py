@@ -19,8 +19,8 @@ class FoodOrder:
 
     def __init__(self, ordered_by):
         self.id = str(uuid.uuid1())
-        self.ordered_by = ordered_by
         self.status = 'pending'
+        self.ordered_by = ordered_by
         self.date = datetime.now().replace(second=0, microsecond=0)
 
     def validate_date(self, order_date):
@@ -66,18 +66,17 @@ class FoodOrder:
         for order in orders:
             if order.id == order_id:
                 return order
-        return False
+        return "order does not exist"
 
-    def update_order_status(self, new_status):
+    def update_status(self, new_status):
         """ Update a specific order with a given id """
         self.status = new_status
 
-    @staticmethod
-    def delete_an_order(order_id):
+    def delete_an_order(self):
         """ A method to delete a specific order from a list """
         for order in orders:
-            if order.id == order_id:
+            if order.id == self.id:
                 orders.remove(order)
-                return {"Message": "Successfull order deleted", "Order deleted": order.to_json()}
+                return "deleted"
         else:
             return "Order not found"
